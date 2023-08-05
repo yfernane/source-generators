@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGenerators", "SourceGenerators\SourceGenerators\SourceGenerators.csproj", "{28402D60-6E15-4793-A2DC-E27A69805E8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGenerators", "SourceGenerators\SourceGenerators.csproj", "{28402D60-6E15-4793-A2DC-E27A69805E8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGenerators.Sample", "SourceGenerators\SourceGenerators.Sample\SourceGenerators.Sample.csproj", "{5A97CAB3-64C4-4768-9173-5746C6FB5787}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGenerators.Sample", "SourceGenerators.Sample\SourceGenerators.Sample.csproj", "{8FC8F72C-24AF-41F6-891B-2A47E705E515}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +14,9 @@ Global
 		{28402D60-6E15-4793-A2DC-E27A69805E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28402D60-6E15-4793-A2DC-E27A69805E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28402D60-6E15-4793-A2DC-E27A69805E8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A97CAB3-64C4-4768-9173-5746C6FB5787}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A97CAB3-64C4-4768-9173-5746C6FB5787}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A97CAB3-64C4-4768-9173-5746C6FB5787}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A97CAB3-64C4-4768-9173-5746C6FB5787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FC8F72C-24AF-41F6-891B-2A47E705E515}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FC8F72C-24AF-41F6-891B-2A47E705E515}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FC8F72C-24AF-41F6-891B-2A47E705E515}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FC8F72C-24AF-41F6-891B-2A47E705E515}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
