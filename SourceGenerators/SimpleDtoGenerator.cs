@@ -50,37 +50,44 @@ public class SimpleDtoGenerator : ISourceGenerator
                 sourceBuilder.AppendLine(usingDirective);
             }
 
-            // Récupération du namespace et du nom de la classe
+            // Récupération du namespace
             var semanticModel = context.Compilation.GetSemanticModel(classWithAttributeGenerateDto.SyntaxTree);
             var classSymbol = semanticModel.GetDeclaredSymbol(classWithAttributeGenerateDto);
             var namespaceName = classSymbol?.ContainingNamespace.ToDisplayString() ?? "Generators";
-            var className = classWithAttributeGenerateDto.Identifier.Text;
-            var dtoClassName = $"{className}Dto";
 
             sourceBuilder.AppendLine($@"#nullable enable
 namespace {namespaceName};
-
-public record {dtoClassName}
-{{");
+");
             
-            // Récupération des propriétés
+            // Récupération de la classe et des propriétés
+            var className = classWithAttributeGenerateDto.Identifier.Text;
+            var dtoClassName = $"{className}Dto";
             var properties = classWithAttributeGenerateDto switch
             {
                 ClassDeclarationSyntax classDeclaration => classDeclaration.Members.OfType<PropertyDeclarationSyntax>()
-                                                                           .Select(p => (p.Identifier.Text, p.Type.ToString())),
+                    .Select(p => (p.Identifier.Text, p.Type.ToString())).ToArray(),
                 
                 RecordDeclarationSyntax recordDeclaration => recordDeclaration.ParameterList?.Parameters
-                                                                              .Select(p => (p.Identifier.Text, p.Type.ToString())),
+                    .Select(p => (p.Identifier.Text, p.Type.ToString())).ToArray(),
                 
                 _ => throw new InvalidOperationException("Unsupported type declaration.")
             };
             
-            foreach (var (propertyName, propertyType) in properties)
+            sourceBuilder.AppendLine($@"public record {dtoClassName}({string.Join(", ", properties.Select(p => $"{p.Item2} {p.Text}"))})
+{{");
+            
+            // Génération du mapping
+            if(properties.Any())
             {
-                sourceBuilder.AppendLine($"    public {propertyType} {propertyName} {{ get; init; }}");
+                sourceBuilder.AppendLine($"    public static explicit operator {dtoClassName}({className} model)" +
+                                         $" => new({string.Join(", ", properties.Select(p => $"model.{p.Text}"))});");
+
+                sourceBuilder.Append($"    public static explicit operator {className}({dtoClassName} dto)" +
+                                     $" => new({string.Join(", ", properties.Select(p => $"dto.{p.Text}"))});");
             }
 
-            sourceBuilder.AppendLine("}");
+            sourceBuilder.AppendLine(@$"
+}}");
 
             context.AddSource($"Models/{dtoClassName}.g.cs", SourceText.From(sourceBuilder.ToString(), Encoding.UTF8));
         }
